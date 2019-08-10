@@ -5,5 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_uniqueness_of :phone_number
-  validates :mobile_number, phone: { possible: false, allow_blank: true, types: [:mobile] }
+  validates :phone_number, phone: { possible: false, allow_blank: true, types: [:mobile] }
+
+  def is_verified?
+    return true if is_verified
+    return false if phone_number.empty?
+    return false
+  end
 end
